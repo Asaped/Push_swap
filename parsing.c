@@ -1,12 +1,5 @@
 #include "push_swap.h"
 
-static int	ft_isdigit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
-
 static long int	ft_atoi(char *str)
 {
 	long int	res;
@@ -33,8 +26,8 @@ static int	check_list(char **tab, int ac, int i, int j)
 	{
 		while (tab[i][j])
 		{
-			if (ac > 1 && tab[i][j] && (tab[i][j] == '-' && j == 0
-				&& ft_isdigit(tab[i][j + 1])) || ft_isdigit(tab[i][j]))
+			if (ac > 1 && tab[i][j] && ((tab[i][j] == '-' && j == 0
+				&& ft_isdigit(tab[i][j + 1])) || ft_isdigit(tab[i][j])))
 				j++;
 			else if (ac == 1 && tab[i][j] && (ft_isdigit(tab[i][j])
 				|| (tab[i][j] == ' ' && j != 0 && j + 1 != ft_strlen(tab[i])
@@ -51,28 +44,6 @@ static int	check_list(char **tab, int ac, int i, int j)
 		i++;
 	}
 	return (1);
-}
-
-static int	ft_free(t_list *stack, int ac)
-{
-	int	i;
-
-	i = 0;
-	if (ac == 1)
-	{		
-		if (stack->a)
-			free(stack->a);
-		if (stack->b)
-			free(stack->b);
-		while (stack->tab[i])
-		{
-			free(stack->tab[i]);
-			i++;
-		}
-		if (stack->tab)
-			free(stack->tab);
-	}
-	return (0);
 }
 
 static int	no_double(int *a, int ac)
@@ -110,10 +81,9 @@ static int	is_sorted(int *a, int len)
 	return (1);
 }
 
-int	ft_tabini(t_list *stack, char **av, int ac)
+int	ft_tabini(t_list *stack, char **av, int ac, long int res)
 {
 	int			count;
-	long int	res;
 
 	if (!check_list(av, ac, 0, 0))
 		return (0);
@@ -122,6 +92,7 @@ int	ft_tabini(t_list *stack, char **av, int ac)
 	else
 		stack->tab = av;
 	stack->alen = ft_tablen(stack->tab);
+	stack->blen = 0;
 	count = ft_tablen(stack->tab);
 	stack->a = malloc(sizeof(int) * count);
 	stack->b = malloc(sizeof(int) * count);

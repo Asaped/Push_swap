@@ -34,7 +34,7 @@ static char	*set_word(char const *s, char c, size_t i, size_t j)
 	return (str);
 }
 
-static char	**ft_free(char **tab, int i)
+static char	**ft_freed(char **tab, int i)
 {
 	while (--i >= 0)
 		free(tab[i]);
@@ -61,7 +61,7 @@ char	**ft_split(char const *s, char c)
 			s++;
 		tab[i++] = set_word(s, c, 0, 0);
 		if (!tab[i - 1])
-			return (ft_free(tab, i));
+			return (ft_freed(tab, i));
 		while (*s != c && *s)
 			s++;
 	}
