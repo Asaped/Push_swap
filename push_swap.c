@@ -6,28 +6,18 @@ int	main(int ac, char **av)
 
 	if (ac > 1)
 	{
-		if (!ft_tabini(&stack, av + 1, --ac, 0))
+		if ((ac == 2 && !av[1][0]) || !ft_tabini(&stack, av + 1, --ac, 0))
+			return (0);
+		if (is_sorted(stack.a, stack.alen))
 		{
-			printf("bruh\n");
+			ft_free(&stack, ac);
 			return (0);
 		}
-		int	i = 0;
-		pb(&stack);
-		printf("alen = %d\n", stack.alen);
-		while (stack.a[i])
-		{
-			printf("numA[%d] = %d\n", i, stack.a[i]);
-			i++;
-		}
-		i = 0;
-		printf("\n");
-		printf("blen = %d\n", stack.blen);
-		while (stack.b[i])
-		{
-			printf("numB[%d] = %d\n", i, stack.b[i]);
-			i++;
-		}
+		if (stack.alen <= 5)
+			otismo_sort(&stack);
+		else
+			sort_radix(&stack);
+		ft_free(&stack, ac);
 	}
-	else
-		return (0);
+	return (0);
 }

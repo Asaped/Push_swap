@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	rotate(int *num, int len)
+int	rotate(int *num, int len)
 {
 	int	temp;
 	int	i;
@@ -15,24 +15,25 @@ void	rotate(int *num, int len)
 			i++;
 		}
 		num[i] = temp;
+		return (1);
 	}
+	return (0);
 }
 
 void	ra(t_list *stack)
 {
-	rotate(stack->a, stack->alen);
-	write(1, "Rotate stack A\n", 15);
+	if (rotate(stack->a, stack->alen))
+		write(1, "ra\n", 3);
 }
 
 void	rb(t_list *stack)
 {
-	rotate(stack->b, stack->blen);
-	write(1, "Rotate stack B\n", 15);
+	if (rotate(stack->b, stack->blen))
+		write(1, "rb\n", 3);
 }
 
 void	rr(t_list *stack)
 {
-	rotate(stack->a, stack->alen);
-	rotate(stack->b, stack->blen);
-	write(1, "Rotate stack A and B\n", 21);
+	if (rotate(stack->a, stack->alen) || rotate(stack->b, stack->blen))
+		write(1, "rr\n", 21);
 }

@@ -22,11 +22,15 @@ size_t	ft_tablen(char **tab);
 
 int		ft_strlen(char *str);
 
+int		is_sorted(const int *a, const int len);
+
 int		ft_free(t_list *stack, int ac);
 
-int		ft_isdigit(char c);
+int		ft_error(void);
 
-void	rotate(int *num, int len);
+int		rotate(int *num, int len);
+
+int		reverse_rotate(int *num, int len);
 
 void	ra(t_list *stack);
 
@@ -44,12 +48,14 @@ void	pa(t_list *stack);
 
 void	pb(t_list *stack);
 
-void	reverse_rotate(int *num, int len);
-
 void	rra(t_list *stack);
 
 void	rrb(t_list *stack);
 
 void	rrr(t_list *stack);
+
+void	otismo_sort(t_list *stack);
+
+void	sort_radix(t_list *stack);
 
 #endif

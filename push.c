@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static void	push(int *give, int *take, int *glen, int *tlen)
+static int	push(int *give, int *take, int *glen, int *tlen)
 {
 	int	temp;
 
@@ -13,17 +13,19 @@ static void	push(int *give, int *take, int *glen, int *tlen)
 		take[*tlen] = temp;
 		*tlen += 1;
 		reverse_rotate(take, *tlen);
+		return (1);
 	}
+	return (0);
 }
 
 void	pa(t_list *stack)
 {
-	push(stack->b, stack->a, &stack->blen, &stack->alen);
-	write(1, "Push stack A\n", 13);
+	if (push(stack->b, stack->a, &stack->blen, &stack->alen))
+		write(1, "pa\n", 3);
 }
 
 void	pb(t_list *stack)
 {
-	push(stack->a, stack->b, &stack->alen, &stack->blen);
-	write(1, "Push stack B\n", 13);
+	if (push(stack->a, stack->b, &stack->alen, &stack->blen))
+		write(1, "pb\n", 3);
 }

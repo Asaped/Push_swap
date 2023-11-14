@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static void	swap(int *num, int len)
+static int	swap(int *num, int len)
 {
 	int	temp;
 
@@ -9,24 +9,25 @@ static void	swap(int *num, int len)
 		temp = num[0];
 		num[0] = num[1];
 		num[1] = temp;
+		return (1);
 	}
+	return (0);
 }
 
 void	sa(t_list *stack)
 {
-	swap(stack->a, stack->alen);
-	write(1, "Swap stack A\n", 13);
+	if (swap(stack->a, stack->alen))
+		write(1, "sa\n", 3);
 }
 
 void	sb(t_list *stack)
 {
-	swap(stack->b, stack->blen);
-	write(1, "Swap stack B\n", 13);
+	if (swap(stack->b, stack->blen))
+		write(1, "sb\n", 3);
 }
 
 void	ss(t_list *stack)
 {
-	swap(stack->a, stack->alen);
-	swap(stack->b, stack->blen);
-	write(1, "Swap stack A and B\n", 19);
+	if (swap(stack->a, stack->alen) || swap(stack->b, stack->blen))
+		write(1, "ss\n", 3);
 }

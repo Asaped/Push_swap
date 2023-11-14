@@ -1,5 +1,12 @@
 #include "push_swap.h"
 
+static int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
 static long int	ft_atoi(char *str)
 {
 	long int	res;
@@ -67,45 +74,31 @@ static int	no_double(int *a, int ac)
 	return (1);
 }
 
-static int	is_sorted(int *a, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i + 1 < len)
-	{
-		if (a[i] > a[i + 1])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int	ft_tabini(t_list *stack, char **av, int ac, long int res)
 {
-	int			count;
+	int	count;
 
 	if (!check_list(av, ac, 0, 0))
-		return (0);
+		return (ft_error());
 	if (ac == 1)
 		stack->tab = ft_split(av[0], ' ');
 	else
 		stack->tab = av;
-	stack->alen = ft_tablen(stack->tab);
 	stack->blen = 0;
-	count = ft_tablen(stack->tab);
+	stack->alen = ft_tablen(stack->tab);
+	count = stack->alen;
 	stack->a = malloc(sizeof(int) * count);
 	stack->b = malloc(sizeof(int) * count);
 	if (!stack->a || !stack->b)
-		return (ft_free(stack, ac));
+		return (ft_free(stack, ac) + ft_error());
 	while (--count >= 0)
 	{
 		res = ft_atoi(stack->tab[count]);
 		if (res > 2147483647 || res < -2147483648)
-			return (ft_free(stack, ac));
+			return (ft_free(stack, ac) + ft_error());
 		stack->a[count] = (int)res;
 	}
-	if (!no_double(stack->a, stack->alen) || is_sorted(stack->a, stack->alen))
-		return (ft_free(stack, ac));
+	if (!no_double(stack->a, stack->alen))
+		return (ft_free(stack, ac) + ft_error());
 	return (1);
 }

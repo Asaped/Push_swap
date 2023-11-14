@@ -1,5 +1,19 @@
 #include "push_swap.h"
 
+int	is_sorted(const int *a, const int len)
+{
+	int	i;
+
+	i = 0;
+	while (i + 1 < len)
+	{
+		if (a[i] > a[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 size_t	ft_tablen(char **tab)
 {
 	size_t	i;
@@ -25,12 +39,13 @@ int	ft_free(t_list *stack, int ac)
 	int	i;
 
 	i = 0;
+	if (stack->alen > 0 || stack->blen > 0)
+	{
+		free(stack->a);
+		free(stack->b);
+	}
 	if (ac == 1)
 	{
-		if (stack->a)
-			free(stack->a);
-		if (stack->b)
-			free(stack->b);
 		while (stack->tab[i])
 			free(stack->tab[i++]);
 		if (stack->tab)
@@ -39,9 +54,8 @@ int	ft_free(t_list *stack, int ac)
 	return (0);
 }
 
-int	ft_isdigit(char c)
+int	ft_error(void)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
+	write(2, "Error\n", 6);
 	return (0);
 }
